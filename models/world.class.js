@@ -13,7 +13,7 @@ class World {
    * @param {init in the game.js} canvas
    */
   constructor(canvas, keyboard) {
-    this.character = new Character(keyboard);
+    this.character = new Character(this.keyboard);
     this.character.world = this;
     
     this.ctx = canvas.getContext("2d");
@@ -113,7 +113,6 @@ class World {
     this.ctx.translate(this.camera_x, 0); // Die Welt verschieben. Der zweite Argument ist die Y-Achse, die nicht verschoben werden soll.
     this.addObjectsToMap(this.level.background);
 
-    // addBars();
     this.addBars();
     // /**
     //  * Funktionen für nicht gebewegbare Zeichenbare Objekte.

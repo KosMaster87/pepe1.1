@@ -49,8 +49,9 @@ class Character extends MovableObject {
 
   constructor(world) {
     // Erst überprüfen, ob world definiert ist
+    super();
     if (world) {
-      this.world = world;
+      this.world = null;
       // Laden der Bilder und weitere Initialisierung
       this.loadImages(this.IMAGES_WALKING);
       this.loadImages(this.IMAGES_JUMPING);
@@ -60,7 +61,7 @@ class Character extends MovableObject {
       this.animate();
     } else {
       // Wenn world nicht definiert ist, handle den Fehler entsprechend
-      console.error("World is not defined for the character.");
+      console.error("console.log: World is not defined for the character.");
     }
   }
 
