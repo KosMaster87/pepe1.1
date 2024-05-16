@@ -1,10 +1,7 @@
-"use strict";
-
 class World {
   level = level1;
-  statusBar = new StatusBar();
+  statusbars = [];
   character = new Character();
-  // throwableObjects = [];
   throwableObjects = [new ThrowableObject()];
   canvas;
   ctx;
@@ -15,14 +12,45 @@ class World {
    * First step to add the draw in this document.
    * @param {init in the game.js} canvas
    */
-  constructor(canvas) {
+  constructor(canvas, keyboard) {
+    this.character = new Character(keyboard);
+    this.character.world = this;
+    
     this.ctx = canvas.getContext("2d");
     this.canvas = canvas;
     this.keyboard = keyboard;
     this.draw();
     this.setWorld();
     this.run();
+    this.startGame();
   }
+
+  // /**
+  //  * Restart or initialize the objects in the world. It starts with the player's input.
+  //  */
+  // startGame() {
+  //   this.initBars();
+  // }
+
+  // /**
+  //  * Initialises the statusbars
+  //  */
+  // initBars() {
+  //   this.statusbars.push(
+  //     new CharacterStatusBar(),
+  //     new CoinStatusBar(),
+  //     new BottleStatusBar()
+  //   );
+  // }
+
+  // /**
+  //  * Add bars in "draw()".
+  //  */
+  // addBars() {
+  //   this.ctx.translate(-this.camera_x, 0);
+  //   this.addObjectsToMap(this.statusbars);
+  //   this.ctx.translate(this.camera_x, 0);
+  // }
 
   /**
    * Für die Tastatur steuerung, den Karakter und die Welt zusammen verbinden .
@@ -85,12 +113,14 @@ class World {
     this.ctx.translate(this.camera_x, 0); // Die Welt verschieben. Der zweite Argument ist die Y-Achse, die nicht verschoben werden soll.
     this.addObjectsToMap(this.level.background);
 
-    /**
-     * Funktionen für nicht gebewegbare Zeichenbare Objekte.
-     */
-    this.ctx.translate(-this.camera_x, 0);
-    this.addToMap(this.statusBar);
-    this.ctx.translate(this.camera_x, 0);
+    // addBars();
+    this.addBars();
+    // /**
+    //  * Funktionen für nicht gebewegbare Zeichenbare Objekte.
+    //  */
+    // this.ctx.translate(-this.camera_x, 0);
+    // this.addToMap(this.statusBar);
+    // this.ctx.translate(this.camera_x, 0);
 
     /**
      * Funktionen für bewegbare Zeichenbare Objekte.
@@ -103,7 +133,7 @@ class World {
 
     /**
      * this.draw() fps aktion.
-    */
+     */
     self = this;
     requestAnimationFrame(function () {
       self.draw();

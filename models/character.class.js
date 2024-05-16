@@ -47,23 +47,40 @@ class Character extends MovableObject {
     "img/2_character_pepe/4_hurt/H-43.png",
   ];
 
-  constructor() {
-    /**
-     * Load image from movable-object.class.js
-     */
-    super().loadImage("img/2_character_pepe/2_walk/W-21.png");
-
-    /**
-     * Das super() startet auch diese fn.
-     * this. ist der Initiator für diesen Karakter. Die loadImages() wird dann in der Eltern Klasse "drawable-object.class.js weiter ausgeführt."
-     */
-    this.loadImages(this.IMAGES_WALKING);
-    this.loadImages(this.IMAGES_JUMPING);
-    this.loadImages(this.IMAGES_DEAD);
-    this.loadImages(this.IMAGES_HURT);
-    this.applyGravity();
-    this.animate();
+  constructor(world) {
+    // Erst überprüfen, ob world definiert ist
+    if (world) {
+      this.world = world;
+      // Laden der Bilder und weitere Initialisierung
+      this.loadImages(this.IMAGES_WALKING);
+      this.loadImages(this.IMAGES_JUMPING);
+      this.loadImages(this.IMAGES_DEAD);
+      this.loadImages(this.IMAGES_HURT);
+      this.applyGravity();
+      this.animate();
+    } else {
+      // Wenn world nicht definiert ist, handle den Fehler entsprechend
+      console.error("World is not defined for the character.");
+    }
   }
+
+  // constructor(world) {
+  //   /**
+  //    * Load image from movable-object.class.js
+  //    */
+  //   super().loadImage("img/2_character_pepe/2_walk/W-21.png");
+  //   this.world = world;
+  //   /**
+  //    * Das super() startet auch diese fn.
+  //    * this. ist der Initiator für diesen Karakter. Die loadImages() wird dann in der Eltern Klasse "drawable-object.class.js weiter ausgeführt."
+  //    */
+  //   this.loadImages(this.IMAGES_WALKING);
+  //   this.loadImages(this.IMAGES_JUMPING);
+  //   this.loadImages(this.IMAGES_DEAD);
+  //   this.loadImages(this.IMAGES_HURT);
+  //   this.applyGravity();
+  //   this.animate();
+  // }
 
   /**
    * Pepes Eigenschaften als Objekt.

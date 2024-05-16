@@ -13,7 +13,7 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  background-image: url("img/desert.png");
+  background-image: url("./img/desert.png");
   background-position: center;
   /* background-repeat: no-repeat; */
   font-family: "safir", Arial, Helvetica, sans-serif;
