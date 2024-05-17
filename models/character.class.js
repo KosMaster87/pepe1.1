@@ -48,12 +48,9 @@ class Character extends MovableObject {
   ];
 
   constructor(world) {
-    // Erst überprüfen, ob world definiert ist
     super().loadImage("img/2_character_pepe/2_walk/W-21.png");
-    // super();
     if (world) {
       this.world = world;
-      // Laden der Bilder und weitere Initialisierung
       this.loadImages(this.IMAGES_WALKING);
       this.loadImages(this.IMAGES_JUMPING);
       this.loadImages(this.IMAGES_DEAD);
@@ -64,24 +61,6 @@ class Character extends MovableObject {
       console.error("console.log: World is not defined for the character.");
     }
   }
-
-  // constructor(world) {
-  //   /**
-  //    * Load image from movable-object.class.js
-  //    */
-  //   super().loadImage("img/2_character_pepe/2_walk/W-21.png");
-  //   this.world = world;
-  //   /**
-  //    * Das super() startet auch diese fn.
-  //    * this. ist der Initiator für diesen Karakter. Die loadImages() wird dann in der Eltern Klasse "drawable-object.class.js weiter ausgeführt."
-  //    */
-  //   this.loadImages(this.IMAGES_WALKING);
-  //   this.loadImages(this.IMAGES_JUMPING);
-  //   this.loadImages(this.IMAGES_DEAD);
-  //   this.loadImages(this.IMAGES_HURT);
-  //   this.applyGravity();
-  //   this.animate();
-  // }
 
   /**
    * Pepes Eigenschaften als Objekt.
