@@ -13,8 +13,11 @@ function init() {
   canvas = document.getElementById("canvas");
   keyboard = new Keyboard();
   world = new World(canvas, keyboard);
-  character = new Character(world);
+  // character = new Character(world);
 
   // console.log(world.character);
   // console.log(world.enemies);
+
+  
 }
+

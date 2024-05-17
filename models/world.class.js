@@ -1,7 +1,7 @@
 class World {
   level = level1;
-  statusbars = [];
-  character = new Character();
+  statusBars = [];
+  character;
   throwableObjects = [new ThrowableObject()];
   canvas;
   ctx;
@@ -13,9 +13,9 @@ class World {
    * @param {init in the game.js} canvas
    */
   constructor(canvas, keyboard) {
-    this.character = new Character(this.keyboard);
-    this.character.world = this;
-    
+    this.character = new Character(this);
+    // this.character.world = this;
+    console.log(this);
     this.ctx = canvas.getContext("2d");
     this.canvas = canvas;
     this.keyboard = keyboard;
@@ -25,30 +25,30 @@ class World {
     this.startGame();
   }
 
-  // /**
-  //  * Restart or initialize the objects in the world. It starts with the player's input.
-  //  */
-  // startGame() {
-  //   this.initBars();
-  // }
+  /**
+   * Restart or initialize the objects in the world. It starts with the player's input.
+   */
+  startGame() {
+    this.initBars();
+  }
 
-  // /**
-  //  * Initialises the statusbars
-  //  */
-  // initBars() {
-  //   this.statusbars.push(
-  //     new CharacterStatusBar(),
-  //     new CoinStatusBar(),
-  //     new BottleStatusBar()
-  //   );
-  // }
+  /**
+   * Initialises the statusBars
+   */
+  initBars() {
+    this.statusBars.push(
+      new CharacterStatusBar(),
+      new CoinStatusBar(),
+      new BottleStatusBar()
+    );
+  }
 
   // /**
   //  * Add bars in "draw()".
   //  */
   // addBars() {
   //   this.ctx.translate(-this.camera_x, 0);
-  //   this.addObjectsToMap(this.statusbars);
+  //   this.addObjectsToMap(this.statusBars);
   //   this.ctx.translate(this.camera_x, 0);
   // }
 
@@ -80,7 +80,8 @@ class World {
     this.level.enemies.forEach((enemy) => {
       if (this.character.isColliding(enemy)) {
         this.character.hit();
-        this.statusBar.setPercentage(this.character.energy);
+        // this.statusBar.setPercentage(this.character.energy);
+        this.statusBars[0].setPercentage(this.character.energy); // Assuming statusBars[0] is CharacterStatusBar
       }
     });
   }
@@ -113,13 +114,13 @@ class World {
     this.ctx.translate(this.camera_x, 0); // Die Welt verschieben. Der zweite Argument ist die Y-Achse, die nicht verschoben werden soll.
     this.addObjectsToMap(this.level.background);
 
-    this.addBars();
-    // /**
-    //  * Funktionen für nicht gebewegbare Zeichenbare Objekte.
-    //  */
-    // this.ctx.translate(-this.camera_x, 0);
-    // this.addToMap(this.statusBar);
-    // this.ctx.translate(this.camera_x, 0);
+    // this.addBars();
+    /**
+     * Funktionen für nicht gebewegbare Zeichenbare Objekte.
+     */
+    this.ctx.translate(-this.camera_x, 0);
+    this.addToMap(this.statusBars);
+    this.ctx.translate(this.camera_x, 0);
 
     /**
      * Funktionen für bewegbare Zeichenbare Objekte.

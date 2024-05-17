@@ -51,7 +51,7 @@ class Character extends MovableObject {
     // Erst überprüfen, ob world definiert ist
     super();
     if (world) {
-      this.world = null;
+      this.world = world;
       // Laden der Bilder und weitere Initialisierung
       this.loadImages(this.IMAGES_WALKING);
       this.loadImages(this.IMAGES_JUMPING);
@@ -93,7 +93,7 @@ class Character extends MovableObject {
      */
     setInterval(() => {
       this.walking_sound.pause();
-      this.EnterKeyboard();
+      this.EnterKeyboard(this);
       this.world.camera_x = -this.x + 100; // Die Kamera an den Karackter gebunden, sodass die "world" sich mitbewegt. Pepe startet auch bei 100px weiter rechts.
     }, 1000 / 60);
     this.besidesFunctions();
