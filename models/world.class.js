@@ -19,38 +19,17 @@ class World {
     this.ctx = canvas.getContext("2d");
     this.canvas = canvas;
     this.keyboard = keyboard;
+    this.statusBars = new WorldStatusBars().statusBars;
     this.draw();
     this.setWorld();
     this.run();
-    this.startGame();
+    // this.startGame();
   }
 
   /**
    * Restart or initialize the objects in the world. It starts with the player's input.
    */
-  startGame() {
-    this.initBars();
-  }
-
-  /**
-   * Initialises the statusBars
-   */
-  initBars() {
-    this.statusBars.push(
-      new CharacterStatusBar(),
-      new CoinStatusBar(),
-      new BottleStatusBar()
-    );
-  }
-
-  // /**
-  //  * Add bars in "draw()".
-  //  */
-  // addBars() {
-  //   this.ctx.translate(-this.camera_x, 0);
-  //   this.addObjectsToMap(this.statusBars);
-  //   this.ctx.translate(this.camera_x, 0);
-  // }
+  startGame() {}
 
   /**
    * Für die Tastatur steuerung, den Karakter und die Welt zusammen verbinden .
@@ -114,12 +93,19 @@ class World {
     this.ctx.translate(this.camera_x, 0); // Die Welt verschieben. Der zweite Argument ist die Y-Achse, die nicht verschoben werden soll.
     this.addObjectsToMap(this.level.background);
 
-    // this.addBars();
     /**
      * Funktionen für nicht gebewegbare Zeichenbare Objekte.
      */
     this.ctx.translate(-this.camera_x, 0);
-    this.addToMap(this.statusBars);
+
+    // this.addToMap(this.statusBars);
+    this.statusBars.forEach((sb) => {
+      this.addToMap(sb);
+    });
+    // this.statusBars.statusBars.forEach(sb => {
+    //   this.addToMap(sb);
+    // });
+
     this.ctx.translate(this.camera_x, 0);
 
     /**

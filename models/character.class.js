@@ -7,7 +7,7 @@ class Character extends MovableObject {
   // x = 80;
   y = 150;
   speed = 5;
-  world; // Der Karakter kann nun auf die Variablen aus der Welt zugreifen.
+  world;
   walking_sound = new Audio("audio/walkingCharacter.mp3");
 
   IMAGES_WALKING = [
@@ -49,7 +49,8 @@ class Character extends MovableObject {
 
   constructor(world) {
     // Erst überprüfen, ob world definiert ist
-    super();
+    super().loadImage("img/2_character_pepe/2_walk/W-21.png");
+    // super();
     if (world) {
       this.world = world;
       // Laden der Bilder und weitere Initialisierung
@@ -60,7 +61,6 @@ class Character extends MovableObject {
       this.applyGravity();
       this.animate();
     } else {
-      // Wenn world nicht definiert ist, handle den Fehler entsprechend
       console.error("console.log: World is not defined for the character.");
     }
   }
