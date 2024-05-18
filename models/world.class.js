@@ -1,12 +1,16 @@
 class World {
   level = level1;
   statusBars = [];
+  worldStatusBars = new WorldStatusBars();
   character;
   throwableObjects = [new ThrowableObject()];
   canvas;
   ctx;
   keyboard;
   camera_x = 0;
+
+  tOActive = false;
+  bottles = [];
 
   /**
    * First step to add the draw in this document.
@@ -19,11 +23,30 @@ class World {
     this.ctx = canvas.getContext("2d");
     this.canvas = canvas;
     this.keyboard = keyboard;
-    this.statusBars = new WorldStatusBars().statusBars;
+    this.statusBars = this.worldStatusBars.statusBars;
+    this.initBottles();
     this.draw();
     this.setWorld();
     this.run();
     // this.startGame();
+  }
+
+  initBottles() {
+    this.bottles = [
+      new Bottle(300 + Math.random() * 4500, 360),
+      new Bottle(300 + Math.random() * 4500, 360),
+      new Bottle(300 + Math.random() * 4500, 360),
+      new Bottle(300 + Math.random() * 4500, 360),
+      new Bottle(300 + Math.random() * 4500, 360),
+      new Bottle(300 + Math.random() * 4500, 360),
+      new Bottle(300 + Math.random() * 4500, 360),
+      new Bottle(300 + Math.random() * 4500, 360),
+      new Bottle(300 + Math.random() * 4500, 360),
+      new Bottle(300 + Math.random() * 4500, 360),
+      new Bottle(300 + Math.random() * 4500, 360),
+      new Bottle(300 + Math.random() * 4500, 360),
+      new Bottle(300 + Math.random() * 4500, 360),
+    ];
   }
 
   /**
@@ -79,6 +102,21 @@ class World {
   }
 
   /**
+   * Add a new ThrowObject and sets the volume
+   * @param {*} volume
+   */
+  addNewThrowObject(volume) {
+    let bottle = new ThrowableObject(
+      this.character.x + 100,
+      this.character.y + 100
+    );
+    this.tOActive = true;
+    // bottle.AUDIO_PICK.volume = volume;
+    this.throwableObjects.push(bottle);
+    this.tOActive = new Date().getTime();
+  }
+
+  /**
    * Draw() wird immer wieder aufgerufen.
    * Draw what ever in this.World
    * ACHTUNG: Es ist nicht das Selbe "draw()"  wie es in der class DrawableObject definiert ist.
@@ -92,6 +130,7 @@ class World {
      */
     this.ctx.translate(this.camera_x, 0); // Die Welt verschieben. Der zweite Argument ist die Y-Achse, die nicht verschoben werden soll.
     this.addObjectsToMap(this.level.background);
+    this.addObjectsToMap(this.bottles);
 
     /**
      * Funktionen für nicht gebewegbare Zeichenbare Objekte.
