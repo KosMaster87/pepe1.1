@@ -1,7 +1,7 @@
 class World {
   level = level1;
-  statusBars = [];
-  worldStatusBars = new WorldStatusBars();
+  statusBars = []; // Aus dedr Erweirung die Variable verfügbar machen.
+  worldStatusBars = new WorldStatusBars(); // Erweiterung für die Welt.
   character;
   throwableObjects = [new ThrowableObject()];
   canvas;
@@ -19,40 +19,21 @@ class World {
   constructor(canvas, keyboard) {
     this.character = new Character(this);
     // this.character.world = this;
-    console.log(this);
-    this.ctx = canvas.getContext("2d");
+    // console.log(this);
+
+    this.ctx = canvas.getContext("2d"); // evt. mit this.canvas.. ?
     this.canvas = canvas;
     this.keyboard = keyboard;
     this.statusBars = this.worldStatusBars.statusBars;
-    this.initBottles();
+    this.initBottles(); // Flaschen in der Welt verteilt.
     this.draw();
+
+    /**
+     * Die Kollegen später mit startGame Button..
+     */
     this.setWorld();
     this.run();
-    // this.startGame();
   }
-
-  initBottles() {
-    this.bottles = [
-      new Bottle(300 + Math.random() * 4500, 360),
-      new Bottle(300 + Math.random() * 4500, 360),
-      new Bottle(300 + Math.random() * 4500, 360),
-      new Bottle(300 + Math.random() * 4500, 360),
-      new Bottle(300 + Math.random() * 4500, 360),
-      new Bottle(300 + Math.random() * 4500, 360),
-      new Bottle(300 + Math.random() * 4500, 360),
-      new Bottle(300 + Math.random() * 4500, 360),
-      new Bottle(300 + Math.random() * 4500, 360),
-      new Bottle(300 + Math.random() * 4500, 360),
-      new Bottle(300 + Math.random() * 4500, 360),
-      new Bottle(300 + Math.random() * 4500, 360),
-      new Bottle(300 + Math.random() * 4500, 360),
-    ];
-  }
-
-  /**
-   * Restart or initialize the objects in the world. It starts with the player's input.
-   */
-  startGame() {}
 
   /**
    * Für die Tastatur steuerung, den Karakter und die Welt zusammen verbinden .
@@ -75,6 +56,8 @@ class World {
     }, 200);
   }
 
+  // ####################################################################################
+
   /**
    * Just check if character collision with chicken.
    */
@@ -87,6 +70,55 @@ class World {
       }
     });
   }
+
+  // ####################################################################################
+
+  /**
+   * Initialises the pickable Bottles
+   */
+  initBottles() {
+    this.bottles = [
+      new Bottle(300 + Math.random() * 4500, 360),
+      new Bottle(300 + Math.random() * 4500, 360),
+      new Bottle(300 + Math.random() * 4500, 360),
+      new Bottle(300 + Math.random() * 4500, 360),
+      new Bottle(300 + Math.random() * 4500, 360),
+      new Bottle(300 + Math.random() * 4500, 360),
+      new Bottle(300 + Math.random() * 4500, 360),
+      new Bottle(300 + Math.random() * 4500, 360),
+      new Bottle(300 + Math.random() * 4500, 360),
+      new Bottle(300 + Math.random() * 4500, 360),
+      new Bottle(300 + Math.random() * 4500, 360),
+      new Bottle(300 + Math.random() * 4500, 360),
+      new Bottle(300 + Math.random() * 4500, 360),
+    ];
+  }
+
+  /**
+   * initialises the pickable coins
+   */
+  initCoins() {
+    this.coins = [
+      new Coin(this.genRandomX(), this.genRandomY()),
+      new Coin(this.genRandomX(), this.genRandomY()),
+      new Coin(this.genRandomX(), this.genRandomY()),
+      new Coin(this.genRandomX(), this.genRandomY()),
+      new Coin(this.genRandomX(), this.genRandomY()),
+      new Coin(this.genRandomX(), this.genRandomY()),
+      new Coin(this.genRandomX(), this.genRandomY()),
+      new Coin(this.genRandomX(), this.genRandomY()),
+      new Coin(this.genRandomX(), this.genRandomY()),
+      new Coin(this.genRandomX(), this.genRandomY()),
+      new Coin(this.genRandomX(), this.genRandomY()),
+      new Coin(this.genRandomX(), this.genRandomY()),
+      new Coin(this.genRandomX(), this.genRandomY()),
+      new Coin(this.genRandomX(), this.genRandomY()),
+      new Coin(this.genRandomX(), this.genRandomY()),
+      new Coin(this.genRandomX(), this.genRandomY()),
+    ];
+  }
+
+  // ####################################################################################
 
   /**
    * Flasche Werfen
@@ -115,6 +147,8 @@ class World {
     this.throwableObjects.push(bottle);
     this.tOActive = new Date().getTime();
   }
+
+  // ####################################################################################
 
   /**
    * Draw() wird immer wieder aufgerufen.
@@ -164,6 +198,8 @@ class World {
       self.draw();
     });
   }
+
+  // ####################################################################################
 
   /**
    * Adds any objects with specific attributes.
@@ -218,3 +254,5 @@ class World {
     this.ctx.restore();
   }
 }
+
+// ####################################################################################
